@@ -29,6 +29,8 @@ namespace Logic.Ui.ViewModel
             {
                 WindowTitle = "Books Application";
             }
+
+            
         }
 
         public string WindowTitle { get; private set; }
