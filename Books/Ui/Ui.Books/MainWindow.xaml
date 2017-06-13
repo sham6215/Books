@@ -4,10 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ui.Books"
+        xmlns:localPages="clr-namespace:Ui.Books.Pages"
         mc:Ignorable="d"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         Title="{Binding WindowTitle, Mode=OneWay}" Height="350" Width="525">
+    <Window.Resources>
+        <Frame x:Key="MainFrameRes"
+               NavigationUIVisibility="Hidden"
+               Source="Pages/BooksManagerPage.xaml"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="button"
+                Grid.Row="0"
+                Content="Next Page"
+                HorizontalAlignment="Left"
+                Width="86"/>
+        <Frame Name="MainFrame"
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"
+               d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type localPages:BooksManagerPage}}"
+               DataContext="{StaticResource MainFrameRes}"
+               Content="{Binding}"/>
     </Grid>
 </Window>
