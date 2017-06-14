@@ -1,7 +1,8 @@
-using GalaSoft.MvvmLight;
+using Logic.Ui.Base;
 
 namespace Logic.Ui.ViewModel
 {
+    using GalaSoft.MvvmLight;
     /// <summary>
     /// This class contains properties that the main View can data bind to.
     /// <para>
@@ -14,14 +15,14 @@ namespace Logic.Ui.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBaseEx
     {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            if (IsInDesignMode)
+            if (IsInDesignMode || IsInDesignModeStatic)
             {
                 WindowTitle = "Books Application (Design)";
             }
@@ -29,10 +30,6 @@ namespace Logic.Ui.ViewModel
             {
                 WindowTitle = "Books Application";
             }
-
-            
         }
-
-        public string WindowTitle { get; private set; }
     }
 }

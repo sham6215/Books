@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using Logic.Ui.Pages;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Logic.Ui.ViewModel
@@ -43,10 +44,20 @@ namespace Logic.Ui.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<AboutPageViewModel>();
+            SimpleIoc.Default.Register<SettingsPageViewModel>();
+            SimpleIoc.Default.Register<BooksManagerPageViewModel>();
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public AboutPageViewModel About => ServiceLocator.Current.GetInstance<AboutPageViewModel>();
+        public SettingsPageViewModel Settings => ServiceLocator.Current.GetInstance<SettingsPageViewModel>();
+        public BooksManagerPageViewModel BooksManager => ServiceLocator.Current.GetInstance<BooksManagerPageViewModel>();
         
+
+        /// <summary>
+        /// TODO: Investigate why do we need Cleanup()
+        /// </summary>
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
