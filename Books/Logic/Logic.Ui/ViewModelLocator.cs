@@ -15,7 +15,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Logic.Ui.Pages;
+using Logic.Ui.Services;
 using Microsoft.Practices.ServiceLocation;
+using System;
 
 namespace Logic.Ui.ViewModel
 {
@@ -53,7 +55,15 @@ namespace Logic.Ui.ViewModel
         public AboutPageViewModel About => ServiceLocator.Current.GetInstance<AboutPageViewModel>();
         public SettingsPageViewModel Settings => ServiceLocator.Current.GetInstance<SettingsPageViewModel>();
         public BooksManagerPageViewModel BooksManager => ServiceLocator.Current.GetInstance<BooksManagerPageViewModel>();
-        
+
+        private static void SetupNavigation()
+        {
+            var navigationService = new NavigationServiceEx();
+            navigationService.Configure("LoginView", new Uri("../Views/LoginView.xaml", UriKind.Relative));
+            navigationService.Configure("Notes", new Uri("../Views/NotesView.xaml", UriKind.Relative));
+
+            SimpleIoc.Default.Register<INavigationServiceEx>(() => navigationService);
+        }
 
         /// <summary>
         /// TODO: Investigate why do we need Cleanup()
