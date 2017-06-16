@@ -2,7 +2,11 @@ using Logic.Ui.Base;
 
 namespace Logic.Ui.ViewModel
 {
+    using Constants;
     using GalaSoft.MvvmLight;
+    using GalaSoft.MvvmLight.Command;
+    using Messages;
+
     /// <summary>
     /// This class contains properties that the main View can data bind to.
     /// <para>
@@ -29,6 +33,42 @@ namespace Logic.Ui.ViewModel
             else
             {
                 WindowTitle = "Books Application";
+            }
+        }
+
+        private RelayCommand _nextCommand;
+
+        /// <summary>
+        /// Gets the NextCommand.
+        /// </summary>
+        public RelayCommand NextCommand
+        {
+            get
+            {
+                return _nextCommand
+                    ?? (_nextCommand = new RelayCommand(
+                    () =>
+                    {
+                        MessengerInstance.Send(new NavigationMessage(NavigationKey.About));
+                    }));
+            }
+        }
+
+        private RelayCommand _loadedCommand;
+
+        /// <summary>
+        /// Gets the LoadedCommand.
+        /// </summary>
+        public RelayCommand LoadedCommand
+        {
+            get
+            {
+                return _loadedCommand
+                    ?? (_loadedCommand = new RelayCommand(
+                    () =>
+                    {
+                        MessengerInstance.Send(new NavigationMessage(NavigationKey.BooksManager));
+                    }));
             }
         }
     }

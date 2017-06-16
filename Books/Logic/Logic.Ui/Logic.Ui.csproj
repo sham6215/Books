@@ -71,7 +71,10 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Base\ViewModelBaseEx.cs" />
+    <Compile Include="Constants\NavigationKey.cs" />
+    <Compile Include="MessageListener.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Messages\NavigationMessage.cs" />
     <Compile Include="Pages\AboutPageViewModel.cs" />
     <Compile Include="Pages\BooksManagerPageViewModel.cs" />
     <Compile Include="Pages\SettingsPageViewModel.cs" />

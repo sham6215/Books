@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Ui.Services
 {
-    interface INavigationServiceEx : INavigationService
+    public interface INavigationServiceEx : INavigationService
     {
         /// <summary>
         /// Gets a page parameter.

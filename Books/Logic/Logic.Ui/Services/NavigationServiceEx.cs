@@ -11,6 +11,13 @@ namespace Logic.Ui.Services
 {
     class NavigationServiceEx : INavigationServiceEx
     {
+        public class NavigationKey
+        {
+            public string BooksManager => "BooksManager";
+            public string Settings => "Settings";
+            public string About => "About";
+        }
+
         private readonly Dictionary<string, Uri> _pagesByKey;
         private readonly List<string> _historic;
 

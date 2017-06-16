@@ -14,6 +14,8 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using Logic.Ui.Constants;
 using Logic.Ui.Pages;
 using Logic.Ui.Services;
 using Microsoft.Practices.ServiceLocation;
@@ -33,6 +35,8 @@ namespace Logic.Ui.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+            SetupNavigation();
 
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
@@ -55,14 +59,17 @@ namespace Logic.Ui.ViewModel
         public AboutPageViewModel About => ServiceLocator.Current.GetInstance<AboutPageViewModel>();
         public SettingsPageViewModel Settings => ServiceLocator.Current.GetInstance<SettingsPageViewModel>();
         public BooksManagerPageViewModel BooksManager => ServiceLocator.Current.GetInstance<BooksManagerPageViewModel>();
+        public MessageListener MessageListener => ServiceLocator.Current.GetInstance<MessageListener>();
 
-        private static void SetupNavigation()
+        private void SetupNavigation()
         {
             var navigationService = new NavigationServiceEx();
-            navigationService.Configure("LoginView", new Uri("../Views/LoginView.xaml", UriKind.Relative));
-            navigationService.Configure("Notes", new Uri("../Views/NotesView.xaml", UriKind.Relative));
+            navigationService.Configure(NavigationKey.About, new Uri("Pages/AboutPage.xaml", UriKind.Relative));
+            navigationService.Configure(NavigationKey.Settings, new Uri("Pages/SettingsPage.xaml", UriKind.Relative));
+            navigationService.Configure(NavigationKey.BooksManager, new Uri("Pages/BooksManagerPage.xaml", UriKind.Relative));
 
-            SimpleIoc.Default.Register<INavigationServiceEx>(() => navigationService);
+            if (!SimpleIoc.Default.IsRegistered<MessageListener>())
+                SimpleIoc.Default.Register(() => new MessageListener(navigationService, Messenger.Default));
         }
 
         /// <summary>
