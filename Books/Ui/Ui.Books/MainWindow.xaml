@@ -23,19 +23,19 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
+        <Frame Name="MainFrame"
+               Grid.Row="0"
+               NavigationUIVisibility="Hidden"
+               d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type localPages:BooksManagerPage}}"
+               Content="{Binding}" Margin="0,1,0,-1"/>
         <Button x:Name="button"
-                Grid.Row="0"
+                Grid.Row="1"
                 Content="Next Page"
                 HorizontalAlignment="Left"
                 Command="{Binding NextCommand}"
-                Width="86"/>    
-        <Frame Name="MainFrame"
-               Grid.Row="1"
-               NavigationUIVisibility="Hidden"
-               d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type localPages:BooksManagerPage}}"
-               Content="{Binding}"/>
+                Width="86"/>
     </Grid>
 </Window>

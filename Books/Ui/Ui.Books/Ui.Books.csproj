@@ -99,6 +99,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\BooksManagerPages\BooksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BooksManagerPages\BookUpdatesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BooksManagerPages\UpdateImagesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,6 +122,15 @@
     </Compile>
     <Compile Include="Pages\BooksManagerPage.xaml.cs">
       <DependentUpon>BooksManagerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BooksManagerPages\BooksPage.xaml.cs">
+      <DependentUpon>BooksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BooksManagerPages\BookUpdatesPage.xaml.cs">
+      <DependentUpon>BookUpdatesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BooksManagerPages\UpdateImagesPage.xaml.cs">
+      <DependentUpon>UpdateImagesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
