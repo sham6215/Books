@@ -70,6 +70,8 @@
     <Compile Include="..\..\.shared\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AOP\IMethodDecorator.cs" />
+    <Compile Include="AOP\LoggedAttribute.cs" />
     <Compile Include="Base\ViewModelBaseEx.cs" />
     <Compile Include="Constants\NavigationKey.cs" />
     <Compile Include="MessageListener.cs" />
@@ -89,6 +91,7 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.2.0.0\build\dotnet\Fody.targets" Condition="Exists('..\..\packages\Fody.2.0.0\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

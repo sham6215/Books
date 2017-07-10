@@ -15,6 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using Logic.Ui.AOP;
 using Logic.Ui.Constants;
 using Logic.Ui.Pages;
 using Logic.Ui.Services;
@@ -29,6 +30,7 @@ namespace Logic.Ui.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        [Logged]
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -61,6 +63,7 @@ namespace Logic.Ui.ViewModel
         public BooksManagerPageViewModel BooksManager => ServiceLocator.Current.GetInstance<BooksManagerPageViewModel>();
         public MessageListener MessageListener => ServiceLocator.Current.GetInstance<MessageListener>();
 
+        [Logged]
         private void SetupNavigation()
         {
             var navigationService = new NavigationServiceEx();
