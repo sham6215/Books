@@ -1,0 +1,3 @@
+[submodule "Libs/MethodDecorator"]
+	path = Libs/MethodDecorator
+	url = https://github.com/Fody/MethodDecorator.git
