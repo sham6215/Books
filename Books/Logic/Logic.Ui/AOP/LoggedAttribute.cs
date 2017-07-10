@@ -1,5 +1,6 @@
 ﻿using Logic.Ui.AOP;
 using MethodDecorator.Fody.Interfaces;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +17,7 @@ namespace Logic.Ui.AOP
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Assembly | AttributeTargets.Module)]
     public class LoggedAttribute : Attribute, IMethodDecorator
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         private MethodBase Method { get; set; }
         private object[] Args { get; set; }
         // instance, method and args can be captured here and stored in attribute instance fields
@@ -24,21 +26,21 @@ namespace Logic.Ui.AOP
         {
             Method = method;
             Args = args;
-            Debug.WriteLine(string.Format("Init: {0} [{1}]", GetMethodFullName(), args.Length));
+            _logger.Warn(string.Format("Init: {0} [{1}]", GetMethodFullName(), args.Length));
         }
         public void OnEntry()
         {
-            Debug.WriteLine($"OnEntry: {GetMethodFullName()}");
+            _logger.Warn($"OnEntry: {GetMethodFullName()}");
         }
 
         public void OnExit()
         {
-            Debug.WriteLine($"OnExit: {GetMethodFullName()}");
+            _logger.Warn($"OnExit: {GetMethodFullName()}");
         }
 
         public void OnException(Exception exception)
         {
-            Debug.WriteLine(string.Format("OnException: {0}: {1}", exception.GetType(), exception.Message));
+            _logger.Error(string.Format("OnException: {0}: {1}", exception.GetType(), exception.Message));
         }
 
         private string GetMethodFullName()
