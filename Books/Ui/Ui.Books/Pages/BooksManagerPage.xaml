@@ -18,15 +18,15 @@
         <DockPanel Grid.Row="0">
             <controls:MetroAnimatedTabControl x:Name="BooksTab">
                 <TabItem Header="Books">
-                    <Frame Source="/Pages/BooksManagerPages/BooksPage.xaml"
+                    <Frame Source="BooksManagerPages/BooksPage.xaml"
                            NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem Header="Updates">
-                    <Frame Source="/Pages/BooksManagerPages/BookUpdatesPage.xaml"
+                    <Frame Source="BooksManagerPages/BookUpdatesPage.xaml"
                            NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem Header="Images">
-                    <Frame Source="/Pages/BooksManagerPages/UpdateImagesPage.xaml"
+                    <Frame Source="BooksManagerPages/UpdateImagesPage.xaml"
                            NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </controls:MetroAnimatedTabControl>

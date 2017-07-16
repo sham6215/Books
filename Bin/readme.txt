@@ -1,5 +1,5 @@
 To create NuGet package from source:
-1. Build a packege release version
+1. Build a packege Release version
 2. Run nuget.exe pack <Path_To_*.nuspec>
 	E.g.: nuget.exe pack N:\MethodDecorator.Fody.nuspec
 3. NuGet package file will be created. E.g.:

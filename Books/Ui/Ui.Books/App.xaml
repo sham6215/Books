@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d1p1:Ignorable="d"
              xmlns:Logic="clr-namespace:Logic.Ui.ViewModel;assembly=Logic.Ui"
-             xmlns:Books="clr-namespace:Ui.Books"
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
         <ResourceDictionary>
@@ -23,7 +22,6 @@
             <Logic:ViewModelLocator
               x:Key="Locator"
               d:IsDataSource="True"/>
-            <Books:MessageListener x:Key="MessageListener" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
