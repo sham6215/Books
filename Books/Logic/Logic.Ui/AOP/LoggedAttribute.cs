@@ -40,7 +40,7 @@ namespace Logic.Ui.AOP
 
         public void OnException(Exception exception)
         {
-            _logger.Error(string.Format("OnException: {0}: {1}", exception.GetType(), exception.Message));
+            _logger.Error(string.Format("OnException ({0}): {1}: {2}", GetMethodFullName(), exception.GetType(), exception.Message));
         }
 
         private string GetMethodFullName()
