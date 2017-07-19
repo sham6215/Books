@@ -38,5 +38,7 @@ namespace Logic.Ui
             NavigationService.NavigateTo(msg?.NavigationKey ?? NavigationKey.About);
         }
 
+
+
     }
 }

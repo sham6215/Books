@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Ui.Books"
         xmlns:localPages="clr-namespace:Ui.Books.Pages"
         x:Name="MainWnd"
@@ -21,21 +22,76 @@
     
     <Window.Resources>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Frame Name="MainFrame"
-               Grid.Row="0"
-               NavigationUIVisibility="Hidden"
-               d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type localPages:BooksManagerPage}}"
-               Content="{Binding}" Margin="0,1,0,-1"/>
-        <Button x:Name="button"
-                Grid.Row="1"
-                Content="Next Page"
-                HorizontalAlignment="Left"
-                Command="{Binding NextCommand}"
-                Width="86"/>
-    </Grid>
+
+    <xctk:BusyIndicator IsBusy="{Binding IsBusy}" DisplayAfter="0">
+        <xctk:BusyIndicator.BusyContentTemplate>
+            <DataTemplate>
+                <StackPanel Margin="4">
+                    <TextBlock x:Name="BusyTitle"
+                               Text="{Binding Path=DataContext.BusyTitle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                               Visibility="{Binding Path=DataSource.BusyTitleVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+                    <StackPanel Margin="4">
+                        <TextBlock x:Name="BusyContent"
+                                   Visibility="{Binding Path=DataContext.BusyContentVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                   Text="{Binding Path=DataContext.BusyContent, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                        <ProgressBar x:Name="BusyProgress"
+                                     Visibility="{Binding Path=DataContext.BusyProgressVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                     Value="{Binding Path=DataContext.BusyProgressValue, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                     Height="15"/>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BusyCancel"
+                                Grid.Column="0"
+                                Content="Cancel"
+                                HorizontalAlignment="Center"
+                                Margin="0 0 0 0"
+                                Visibility="{Binding Path=DataContext.BusyCancelVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </xctk:BusyIndicator.BusyContentTemplate>
+        <xctk:BusyIndicator.OverlayStyle>
+            <Style TargetType="Rectangle">
+                <Setter Property="Fill" Value="#99AAAAAA"/>
+            </Style>
+        </xctk:BusyIndicator.OverlayStyle>
+        <xctk:BusyIndicator.ProgressBarStyle>
+            <Style TargetType="ProgressBar">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+        </xctk:BusyIndicator.ProgressBarStyle>
+        
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Frame Name="MainFrame"
+                   Grid.Row="0"
+                   NavigationUIVisibility="Hidden"
+                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type localPages:BooksManagerPage}}"
+                   Content="{Binding}" Margin="0,1,0,-1"/>
+            <StackPanel Grid.Row="1" 
+                        Orientation="Horizontal">
+                <Button x:Name="button"
+                        Content="Next Page"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NextCommand}"
+                        Width="86"/>
+                <Button x:Name="button2"
+                        Content="Busy"
+                        HorizontalAlignment="Left"
+                        Command="{Binding BusyCommand}"
+                        Width="86"/>
+            </StackPanel>
+        </Grid>
+        
+        
+    </xctk:BusyIndicator>
 </Window>

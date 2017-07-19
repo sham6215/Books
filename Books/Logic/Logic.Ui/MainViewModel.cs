@@ -6,6 +6,10 @@ namespace Logic.Ui.ViewModel
     using GalaSoft.MvvmLight;
     using GalaSoft.MvvmLight.Command;
     using Messages;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System;
+    using System.Windows;
 
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -19,7 +23,7 @@ namespace Logic.Ui.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBaseEx
+    public class MainViewModel : ViewModelBaseEx, IBusyIndicator
     {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -34,6 +38,16 @@ namespace Logic.Ui.ViewModel
             {
                 WindowTitle = "Books Application";
             }
+
+            IsBusy = false;
+            BusyContent = "Busy Content";
+            BusyContentVisibility = Visibility.Visible;
+            BusyTitle = "Wait please...";
+            BusyTitleVisibility = Visibility.Visible;
+            BusyCancelVisibility = Visibility.Collapsed;
+            BusyProgressVisibility = Visibility.Visible;
+            BusyProgressValue = 0;
+            
         }
 
         private RelayCommand _nextCommand;
@@ -71,5 +85,49 @@ namespace Logic.Ui.ViewModel
                     }));
             }
         }
+
+        private RelayCommand _buisyCommand;
+
+        /// <summary>
+        /// Gets the BuisyCommand.
+        /// </summary>
+        public RelayCommand BusyCommand
+        {
+            get
+            {
+                return _buisyCommand
+                    ?? (_buisyCommand = new RelayCommand(
+                    () =>
+                    {
+                        IsBusy = true;
+                        Task.Factory.StartNew(() =>
+                        {
+                            for (int i = 0; i < 100; i++)
+                            {
+                                Thread.Sleep(50);
+                                BusyContent = $"Progress: {i+1}%";
+                                BusyProgressValue = i + 1;
+                            }
+
+                        }).ContinueWith((task) => { IsBusy = false; });
+                    }));
+            }
+        }
+
+        public bool IsBusy { get; set; }
+
+        public string BusyTitle { get; set; }
+
+        public Visibility BusyTitleVisibility { get; set; }
+
+        public string BusyContent { get; set; }
+
+        public Visibility BusyContentVisibility { get; set; }
+
+        public int BusyProgressValue { get; set; }
+
+        public Visibility BusyProgressVisibility { get; set; }
+
+        public Visibility BusyCancelVisibility { get; set; }
     }
 }
