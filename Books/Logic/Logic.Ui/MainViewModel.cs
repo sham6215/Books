@@ -10,6 +10,8 @@ namespace Logic.Ui.ViewModel
     using System.Threading.Tasks;
     using System;
     using System.Windows;
+    using AOP;
+    using GalaSoft.MvvmLight.Messaging;
 
     /// <summary>
     /// This class contains properties that the main View can data bind to.
@@ -28,7 +30,14 @@ namespace Logic.Ui.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
+        /// 
+        [Logged]
         public MainViewModel()
+        {
+            Init();
+        }
+
+        private void Init()
         {
             if (IsInDesignMode || IsInDesignModeStatic)
             {
@@ -39,15 +48,17 @@ namespace Logic.Ui.ViewModel
                 WindowTitle = "Books Application";
             }
 
+            InitMessanger();
+
             IsBusy = false;
             BusyContent = "Busy Content";
             BusyContentVisibility = Visibility.Visible;
             BusyTitle = "Wait please...";
             BusyTitleVisibility = Visibility.Visible;
-            BusyCancelVisibility = Visibility.Collapsed;
+            BusyCancelVisibility = Visibility.Visible;
             BusyProgressVisibility = Visibility.Visible;
             BusyProgressValue = 0;
-            
+            BusyProgressMaximum = 100;
         }
 
         private RelayCommand _nextCommand;
@@ -63,7 +74,22 @@ namespace Logic.Ui.ViewModel
                     ?? (_nextCommand = new RelayCommand(
                     () =>
                     {
-                        MessengerInstance.Send(new NavigationMessage(NavigationKey.About));
+                        int i = new Random().Next() % 3;
+                        string page = string.Empty;
+                        switch (i)
+                        {
+                            case 0:
+                                page = NavigationKey.About;
+                                break;
+                            case 1:
+                                page = NavigationKey.BooksManager;
+                                break;
+                            default:
+                                page = NavigationKey.Settings;
+                                break;
+                        }
+
+                        MessengerInstance.Send(new NavigationMessage(page));
                     }));
             }
         }
@@ -86,11 +112,10 @@ namespace Logic.Ui.ViewModel
             }
         }
 
-        private RelayCommand _buisyCommand;
-
         /// <summary>
         /// Gets the BuisyCommand.
         /// </summary>
+        private RelayCommand _buisyCommand;
         public RelayCommand BusyCommand
         {
             get
@@ -114,6 +139,20 @@ namespace Logic.Ui.ViewModel
             }
         }
 
+        private CancellationTokenSource _canceller;
+        private CancellationTokenSource _Canceller {
+            get {
+                return _canceller;
+            }
+            set {
+                if (_canceller != null)
+                    _canceller.Cancel();
+                _canceller = value;
+            }
+        }
+
+        #region IBusyIndicator implementation //////////////////////////
+
         public bool IsBusy { get; set; }
 
         public string BusyTitle { get; set; }
@@ -125,9 +164,57 @@ namespace Logic.Ui.ViewModel
         public Visibility BusyContentVisibility { get; set; }
 
         public int BusyProgressValue { get; set; }
+        public int BusyProgressMaximum { get; set; }
 
         public Visibility BusyProgressVisibility { get; set; }
 
         public Visibility BusyCancelVisibility { get; set; }
+
+        private RelayCommand _busyCancelCommand;
+        public RelayCommand BusyCancelCommand
+        {
+            get
+            {
+                return _busyCancelCommand
+                    ?? (_busyCancelCommand = new RelayCommand(
+                    () =>
+                    {
+                        IsBusy = false;
+                        _Canceller?.Cancel();
+                        _Canceller = null;
+                    }));
+            }
+        }
+
+        #endregion IBusyIndicator implementation //////////////////////////
+
+
+        #region Messanger
+        private void InitMessanger()
+        {
+            Messenger.Default.Register<BusyIndicatorShowMessage>(this, OnBusyIndicatorShowMessage);
+            Messenger.Default.Register<BusyIndicatorUpdateMessage>(this, OnBusyIndicatorUpdateMessage);
+            Messenger.Default.Register<BusyIndicatorHideMessage>(this, OnBusyIndicatorHideMessage);
+        }
+
+        private void OnBusyIndicatorHideMessage(BusyIndicatorHideMessage obj)
+        {
+            IsBusy = false;
+            _Canceller?.Cancel();
+            _Canceller = null;
+        }
+
+        private void OnBusyIndicatorUpdateMessage(BusyIndicatorUpdateMessage obj)
+        {
+            BusyProgressValue += 1;
+        }
+
+        private void OnBusyIndicatorShowMessage(BusyIndicatorShowMessage obj)
+        {
+            IsBusy = true;
+            if (obj.Canceller != null)
+                _Canceller = obj.Canceller;
+        }
+        #endregion Messanger
     }
 }

@@ -63,7 +63,6 @@ namespace Logic.Ui.ViewModel
         public BooksManagerPageViewModel BooksManager => ServiceLocator.Current.GetInstance<BooksManagerPageViewModel>();
         public MessageListener MessageListener => ServiceLocator.Current.GetInstance<MessageListener>();
 
-        [Logged]
         private void SetupNavigation()
         {
             var navigationService = new NavigationServiceEx();

@@ -77,11 +77,13 @@
     </Compile>
     <Compile Include="AOP\IMethodDecorator.cs" />
     <Compile Include="AOP\LoggedAttribute.cs" />
+    <Compile Include="Base\BusyIndicatorBase.cs" />
     <Compile Include="Base\IBusyIndicator.cs" />
     <Compile Include="Base\ViewModelBaseEx.cs" />
     <Compile Include="Constants\NavigationKey.cs" />
     <Compile Include="MessageListener.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Messages\BusyIndicatorMessage.cs" />
     <Compile Include="Messages\NavigationMessage.cs" />
     <Compile Include="Pages\AboutPageViewModel.cs" />
     <Compile Include="Pages\BooksManagerPageViewModel.cs" />

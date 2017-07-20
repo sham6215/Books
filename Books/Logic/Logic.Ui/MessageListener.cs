@@ -14,22 +14,22 @@ namespace Logic.Ui
     public class MessageListener
     {
         private INavigationServiceEx NavigationService { get; set; }
-        private IMessenger Messager { get; set; }
+        private IMessenger Messanger { get; set; }
         public bool IsVisible => true;
 
-        public MessageListener(INavigationServiceEx navigationService, IMessenger messager)
+        public MessageListener(INavigationServiceEx navigationService, IMessenger messanger)
         {
             NavigationService = navigationService;
-            Messager = messager;
+            Messanger = messanger;
 
             Init();
         }
 
         private void Init()
         {
-            if (Messager != null)
+            if (Messanger != null)
             {
-                Messager.Register<NavigationMessage>(this, OnNavigationMessage);
+                Messanger.Register<NavigationMessage>(this, OnNavigationMessage);
             }
         }
 

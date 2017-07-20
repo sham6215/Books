@@ -24,21 +24,25 @@
     </Window.Resources>
 
     <xctk:BusyIndicator IsBusy="{Binding IsBusy}" DisplayAfter="0">
+        
+        <!-- Busy Indicator template START -->
+        
         <xctk:BusyIndicator.BusyContentTemplate>
             <DataTemplate>
-                <StackPanel Margin="4">
+                <StackPanel Margin="4" DataContext="{Binding Path=DataContext, ElementName=MainWnd}">
                     <TextBlock x:Name="BusyTitle"
-                               Text="{Binding Path=DataContext.BusyTitle, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                               Visibility="{Binding Path=DataSource.BusyTitleVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                               Text="{Binding BusyTitle}"
+                               Visibility="{Binding BusyTitleVisibility}"
                                FontWeight="Bold"
                                HorizontalAlignment="Center"/>
                     <StackPanel Margin="4">
                         <TextBlock x:Name="BusyContent"
-                                   Visibility="{Binding Path=DataContext.BusyContentVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                                   Text="{Binding Path=DataContext.BusyContent, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                                   Visibility="{Binding BusyContentVisibility}"
+                                   Text="{Binding BusyContent}"/>
                         <ProgressBar x:Name="BusyProgress"
-                                     Visibility="{Binding Path=DataContext.BusyProgressVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
-                                     Value="{Binding Path=DataContext.BusyProgressValue, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                     Visibility="{Binding BusyProgressVisibility}"
+                                     Maximum="{Binding BusyProgressMaximum}"
+                                     Value="{Binding BusyProgressValue}"
                                      Height="15"/>
                     </StackPanel>
                     <Grid>
@@ -50,7 +54,8 @@
                                 Content="Cancel"
                                 HorizontalAlignment="Center"
                                 Margin="0 0 0 0"
-                                Visibility="{Binding Path=DataContext.BusyCancelVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                                Command="{Binding BusyCancelCommand}"
+                                Visibility="{Binding BusyCancelVisibility}"/>
                     </Grid>
                 </StackPanel>
             </DataTemplate>
@@ -65,7 +70,10 @@
                 <Setter Property="Visibility" Value="Collapsed"/>
             </Style>
         </xctk:BusyIndicator.ProgressBarStyle>
-        
+
+        <!-- Busy Indicator template END -->
+
+        <!-- Real page content START -->
         
         <Grid>
             <Grid.RowDefinitions>
@@ -91,7 +99,8 @@
                         Width="86"/>
             </StackPanel>
         </Grid>
-        
-        
+
+        <!-- Real page content END -->
+
     </xctk:BusyIndicator>
 </Window>

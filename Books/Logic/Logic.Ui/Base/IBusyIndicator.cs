@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,9 @@ namespace Logic.Ui.Base
         string BusyContent { get; set; }
         Visibility BusyContentVisibility { get; set; }
         int BusyProgressValue { get; set; }
+        int BusyProgressMaximum { get; set; }
         Visibility BusyProgressVisibility { get; set; }
         Visibility BusyCancelVisibility { get; set; }
+        RelayCommand BusyCancelCommand { get; }
     }
 }
