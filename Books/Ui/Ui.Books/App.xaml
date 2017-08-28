@@ -16,12 +16,17 @@
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+
+                <ResourceDictionary Source="DataTemplates\BusyIndicatorDataTemplate.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
 
             <Logic:ViewModelLocator
               x:Key="Locator"
               d:IsDataSource="True"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -23,43 +23,12 @@
     <Window.Resources>
     </Window.Resources>
 
-    <xctk:BusyIndicator IsBusy="{Binding IsBusy}" DisplayAfter="0">
-        
+    <xctk:BusyIndicator 
+        IsBusy="{Binding IsBusy}"
+        DisplayAfter="0"
+        BusyContentTemplate="{StaticResource BusyIndicatorEx}">
+
         <!-- Busy Indicator template START -->
-        
-        <xctk:BusyIndicator.BusyContentTemplate>
-            <DataTemplate>
-                <StackPanel Margin="4" DataContext="{Binding Path=DataContext, ElementName=MainWnd}">
-                    <TextBlock x:Name="BusyTitle"
-                               Text="{Binding BusyTitle}"
-                               Visibility="{Binding BusyTitleVisibility}"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Center"/>
-                    <StackPanel Margin="4">
-                        <TextBlock x:Name="BusyContent"
-                                   Visibility="{Binding BusyContentVisibility}"
-                                   Text="{Binding BusyContent}"/>
-                        <ProgressBar x:Name="BusyProgress"
-                                     Visibility="{Binding BusyProgressVisibility}"
-                                     Maximum="{Binding BusyProgressMaximum}"
-                                     Value="{Binding BusyProgressValue}"
-                                     Height="15"/>
-                    </StackPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="BusyCancel"
-                                Grid.Column="0"
-                                Content="Cancel"
-                                HorizontalAlignment="Center"
-                                Margin="0 0 0 0"
-                                Command="{Binding BusyCancelCommand}"
-                                Visibility="{Binding BusyCancelVisibility}"/>
-                    </Grid>
-                </StackPanel>
-            </DataTemplate>
-        </xctk:BusyIndicator.BusyContentTemplate>
         <xctk:BusyIndicator.OverlayStyle>
             <Style TargetType="Rectangle">
                 <Setter Property="Fill" Value="#99AAAAAA"/>
@@ -70,7 +39,6 @@
                 <Setter Property="Visibility" Value="Collapsed"/>
             </Style>
         </xctk:BusyIndicator.ProgressBarStyle>
-
         <!-- Busy Indicator template END -->
 
         <!-- Real page content START -->
